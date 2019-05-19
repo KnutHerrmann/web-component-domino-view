@@ -1,0 +1,19 @@
+body {
+    font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+    padding: 12px;
+    margin: 0;
+}
+
+a {
+    display: block;
+    margin: 12px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+a:hover {
+    background-color: #eee;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+    <title>Web Componenent Demo domino-view</title>
+    <link href="../styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <select
+      onchange="document.querySelector('domino-view').setAttribute('db', this.value)"
+    >
+      <option>Testdata10000.nsf</option>
+      <option>Testdata100000.nsf</option>
+      <option>Testdata1000000.nsf</option>
+    </select>
+    <select onchange="document.querySelector('domino-view').view = this.value">
+      <option>addresses</option>
+      <option>emails</option>
+      <option>birthdays</option>
+      <option>phone numbers</option>
+    </select>
+    <style>
+      domino-view {
+        height: 300px;
+        margin: 10px 0px;
+        color: black;
+        --header-color: inherit;
+      }
+    </style>
+    <domino-view db="Testdata10000.nsf" view="addresses"></domino-view>
+    <div>selected row: <span id="selectedRow">-</span></div>
+    <script>
+      document
+        .querySelector("domino-view")
+        .addEventListener(
+          "handleRowClick",
+          event =>
+            (document.querySelector("#selectedRow").innerHTML = JSON.stringify(
+              event.detail
+            ))
+        );
+    </script>
+
+    <script src="domino-view.js"></script>
+  </body>
+</html>

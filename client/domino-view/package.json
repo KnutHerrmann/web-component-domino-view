@@ -1,0 +1,39 @@
+{
+  "name": "domino-view",
+  "version": "1.0.0",
+  "description": "Demo for Web Component <domino-view>.",
+  "author": "Knut Herrmann",
+  "license": "MIT",
+  "homepage": "http://server1:8088/WebComponents.nsf/domino-view",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8",
+    "react-virtualized": "9.21.0",
+    "rewire": "^4.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.3",
+    "prop-types": "^15.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "node build-non-split",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "splitChunks": {
+    "cacheGroups": {
+      "default": false
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  style="height:100%;">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Web Componenent Demo domino-view</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+      <select
+        onchange="document.querySelector('domino-view').setAttribute('db', this.value)"
+      >
+      <option>Testdata100000.nsf</option>
+      <option>Testdata1000000.nsf</option>
+      </select>
+      <span>selected row: </span><span id="selectedRow">-</span>
+      <style>
+        domino-view {
+          height: 300px;
+          --header-color:green;
+          color: blue;
+        }
+      </style>
+      <domino-view db="Testdata100000.nsf" view="addresses"></domino-view>
+     
+    <script>
+        document.querySelector('domino-view').addEventListener('handleRowClick', event => 
+          document.querySelector('#selectedRow').innerHTML = JSON.stringify(event.detail, null, 2))
+      </script>  
+  </body>
+</html>

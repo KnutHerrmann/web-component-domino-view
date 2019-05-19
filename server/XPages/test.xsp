@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xp_1="http://www.ibm.com/xsp/coreex">
+	<xp:this.beforePageLoad><![CDATA[#{javascript:
+		viewScope.dbPath = 'Testdata100000.nsf';
+		viewScope.viewName = 'addresses';
+		}]]></xp:this.beforePageLoad>
+	<script type="module" src="http://server1:8088/WebComponents.nsf/domino-view.js"></script>
+	<xp:panel styleClass="container">
+		<xp:panel styleClass="row">
+			<xp:label value="Database" id="label1" for="comboBox1"></xp:label>
+			<xp:comboBox id="comboBox1" value="#{viewScope.dbPath}"
+				defaultValue="Testdata100000.nsf" styleClass="col-4">
+				<xp:selectItems
+					value="#{javascript:
+					 		var databases:java.util.TreeSet = new java.util.TreeSet();
+							var db_Directory:NotesDbDirectory = session.getDbDirectory(database.getServer());
+							var db_CurrentDB:NotesDatabase = db_Directory.getFirstDatabase(NotesDbDirectory.DATABASE);
+							while(db_CurrentDB != null){
+								databases.add(db_CurrentDB.getFilePath().toString());
+								db_CurrentDB = db_Directory.getNextDatabase()
+							}
+							return databases.toArray()}" />
+				<xp:eventHandler event="onchange" submit="true"
+					refreshMode="partial" refreshId="comboBox2">
+					<xp:this.action><![CDATA[#{javascript:viewScope.viewName=''}]]></xp:this.action>
+				</xp:eventHandler>
+			</xp:comboBox>
+			<xp:label value="View" id="label2" for="comboBox2"></xp:label>
+			<xp:comboBox id="comboBox2" value="#{viewScope.viewName}"
+				defaultValue="addresses" styleClass="col-4">
+				<xp:selectItems>
+					<xp:this.value><![CDATA[#{javascript:
+					 		var viewNames:java.util.TreeSet = new java.util.TreeSet();
+					 		var db:NotesDatabase = session.getDatabase(database.getServer(), viewScope.dbPath);
+					 		var views = db.getViews().iterator();
+							while (views.hasNext()) {
+								var v = views.next();
+								viewNames.add(v.getName());
+							}
+					 		//java.util.Collections.sort(viewNames);
+							return viewNames.toArray();}]]></xp:this.value>
+				</xp:selectItems>
+				<xp:eventHandler event="onchange" submit="true"
+					refreshMode="partial" refreshId="domview">
+
+				</xp:eventHandler>
+			</xp:comboBox>
+
+		</xp:panel>
+	</xp:panel>
+	<xp:panel id="domview" style="height: 300px">
+		<xp:text escape="true" id="computedField2"
+			value="#{javascript: 'domino-view: ' + viewScope.dbPath + ' + ' + viewScope.viewName}">
+		</xp:text>
+		<xp:panel tagName="domino-view">
+			<xp:this.attrs>
+				<xp:attr name="db" value="#{viewScope.dbPath}" />
+				<xp:attr name="view" value="#{viewScope.viewName}" />
+			</xp:this.attrs>
+		</xp:panel>
+	</xp:panel>
+</xp:view>
